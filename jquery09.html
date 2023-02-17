@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- jquery -->
+    <script src="js/jquery-3.6.3.min.js"></script>
+
+</head>
+<body>
+    
+    <button id="btn">에이젝트</button>
+
+    <script>
+        $("#btn").click(function() {
+
+            //ajax
+            $.ajax({
+                url: "http://localhost:8383/postAjax", //요청 주소
+                type: "post", //요청 타입
+                data: JSON.stringify({id: "aaa123", name: "홍길동"}), //보낼 데이터
+                contentType: "application/json", //보내는 데이터에 대한 타입(필수)
+                dataType: "json", //json, xml, text, html ... 등 (받는 데이터에 대한 타입)(옵션)
+                success: function(result) { //성공시 콜백
+                    console.log(result);
+                },
+                error: function(err) { //실패시 콜백
+                    console.log(err);
+                }
+            })
+
+        })
+    </script>
+
+    <hr/>
+
+    <input type="text" name="topic" id="topic">
+    <button id="btn2">get방식</button>
+
+    <script>
+        //버튼을 클릭하면 get방식으로 ajax 처리를 합니다.
+        //getAjax/토픽값 요청 처리합니다.
+        //get 방식은 주소에 입력값을 실어서 보내줌
+
+        $("#btn2").click(function() {
+
+        $.ajax({
+            url: "http://localhost:8383/getAjax/" + $("#topic").val(), //요청 주소
+            type: "get", //요청 타입
+            contentType: "application/json", //보내는 데이터에 대한 타입(필수지만 주소에 보내니까 안적어도 됨)
+            success: function(result) { //성공시 콜백
+                    console.log(result);
+            },
+            error: function(err) { //실패시 콜백
+                    console.log(err);
+            }
+            })
+
+        })
+
+
+        //강사님 답안
+        $("#btn2").click(function() {
+
+            var data = $("input[name='topic']").val();
+        $.ajax({
+            url: "http://localhost:8383/getAjax/" + data, //요청 주소
+            type: "get", //요청 타입
+            success: function(result) { //성공시 콜백
+                    console.log(result);
+            },
+            error: function(err) { //실패시 콜백
+                    console.log(err);
+            }
+            })
+
+        })
+    </script>
+
+</body>
+</html>
